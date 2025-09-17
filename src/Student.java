@@ -5,7 +5,9 @@ public class Student implements Comparable<Student>{
    public String rollnum;
 Courses courses;
 
-Student(){}
+Student(){
+    courses = new Courses();
+}
     public Student(String name, String rollnum , Courses courses  ) {
 this.courses = new Courses(courses);
         this.name = name;
@@ -45,12 +47,4 @@ courses +
     }
 
 
-//
-//    public String toString() {
-//        return "Student{" +
-//                "name='" + name + '\'' +
-//                ", rollnum='" + rollnum + '\'' +
-//                "courses Assigned= "
-//                '}';
-//    }
 }

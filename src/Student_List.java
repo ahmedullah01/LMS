@@ -3,8 +3,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Student_List implements Iterable<Student> {
-Student s1 = new Student();
-int  index = 0;
+
+
 
     public Iterator<Student> iterator() {
         return  new Iterator<Student>() {
