@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student> , Serializable {
     public String name;
    public String rollnum;
 Courses courses;
