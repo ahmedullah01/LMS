@@ -3,50 +3,51 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
-
 public class Student_List  {
     Student[] StudentList;
+    Student[] COPYList;
 int capacity;
-
+int size ;
 Student_List(){
-    this.capacity = 100;
+    this.capacity = 4;
+    size = 0;
     StudentList = new Student[capacity];
 }
-
+Student_List(Student_List other){
+    this.capacity = other.capacity;
+    this.size = other.size;
+    this.StudentList= other.StudentList;
+}
 public Student get(int i ){
     return StudentList[i];
 }
-
 public void add(Student e){
     for(int i  = 0 ; i < StudentList.length ; i++){
         if(StudentList[i]==null){
             StudentList[i] = e;
+            size++;
             break;
         } else if (StudentList[StudentList.length-1] != null) {
-            try{
-                throw new IndexOutOfBoundsException();
-            }catch (IndexOutOfBoundsException eee){
-                System.out.println("size fullllllllllllllllllll");
-            }
+       setCapacity(capacity*2);
         }
     }
 }
+public void add(int index , Student e){
 
-public void set(Student e , int i ){
+    for(int i = capacity-1 ; i >=index ;i--){
+        StudentList[i] = StudentList[i-1];
+    }
+    StudentList[index] = e;
+    size++;
+}
+public void Replace(Student e , int i ){
     if(get(i) != null){
         StudentList[i] = e;
     }
-    else{
-        try{
-            throw new IndexOutOfBoundsException();
-        }catch (IndexOutOfBoundsException ey){
-            System.out.println( "first add value then set");
-        }
+    else {
+        System.out.println("NOT FOUND AT INDEX :" + i + " \uD83D\uDE22");
     }
 }
-
-
-
 //    public Iterator<Student> iterator() {
 //        return  new Iterator<Student>() {
 //
@@ -62,15 +63,7 @@ public void set(Student e , int i ){
 //            }
 //        };
 //    }
-
    // ArrayList<Student> StudentList = new ArrayList<>();
-
-
-public void AddStudent(Student e){
-        add(e);
-    System.out.println("Added Successfullyyyy!");
-}
-
 public void Search(){
     System.out.println("wanna search by 1)name or 2)rollnum");
     Scanner sc = new Scanner(System.in);
@@ -86,9 +79,8 @@ public void Search(){
         searchById(rollnumber);
     }
 }
-
 public void remove(int i ) {
-    if (get(i) != null) {
+    if (!searchByIndex(i).equals(null)) {
         for (int j = i; j < StudentList.length - 1; j++) {
            StudentList [i] = null;
             Student temp = get(j);
@@ -96,11 +88,9 @@ public void remove(int i ) {
             StudentList[j + 1] = temp;
         }
     }else {
-        System.out.println("already null");
+        System.out.println("already null \uD83D\uDE0D");
     }
 }
-
-
 public int searchbyName(String name) {
     for (int i = 0; i < StudentList.length; i++) {
     Student s = get(i);
@@ -121,35 +111,48 @@ return  i;
     }
     return -1;
 }
-
-    public void RemoveStudent(Student s1){
-    boolean flag  = false;
- for (int  i = 0 ; i < StudentList.length ; i++){
-     Student s = get(i);
-     if(s1.getName().equals(s.getName())){
-         if(s1.rollnum.substring(1).equals(s.getRollnum().substring(1) )){
-             remove(i);
-             flag = true;
-             System.out.println("remove at index " + i);
-
-         }
-     }
-     if(flag == false){
-         System.out.println("not found");
-     }
-
- }
+public Student searchByIndex(int index) {
+    Student current = StudentList[index];
+    if (!current.equals(null)){
+        return current;
+}else{
+        return null;
     }
-
-    public void setCapacity(int capacity) {
+}
+public void remove(Student s1){
+    int Student_index  = searchById(s1.rollnum);
+    if(Student_index != -1) {
+        remove(Student_index);
+        System.out.println("Yaaaahooooo done \uD83D\uDE0D");
+    }
+    else{
+        System.out.println("Not Found \uD83D\uDE2D");
+    }
+    }
+ public void setCapacity(int capacity) {
         this.capacity = capacity;
-        StudentList = new Student[capacity];
+        COPYList = new Student[capacity];
+        for(int  i = 0 ; i<size ; i++) {
+            COPYList[i] = StudentList[i];
+        }
+     this.StudentList = COPYList;
+}
+//String concatenation method in which java create new String in every single concatenation
+    //public String toString() {
+//    String output = "";
+//    for(int i = 0 ; i< StudentList.length; i++){
+//        output += StudentList[i];
+//        output+= "\n";
+//    }
+//        return output;
+//    }
+    //Stringbuilder
+    //by using String buildwer
+public String toString(){
+    StringBuilder StudentsData = new StringBuilder();
+    for(int i = 0; i < capacity ; i++){
+        StudentsData.append(StudentList[i]);
     }
-
-    @Override
-    public String toString() {
-        return "Student_List{" +
-                "StudentList=" + Arrays.toString(StudentList) +
-                '}';
+    return StudentsData.toString();
     }
 }

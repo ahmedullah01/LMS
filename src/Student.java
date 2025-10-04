@@ -7,10 +7,10 @@ public class Student implements Comparable<Student> , Serializable {
 Courses courses;
 
 Student(){
-    courses = new Courses();
+ //   courses = new Courses();
 }
-    public Student(String name, String rollnum , Courses courses  ) {
-this.courses = new Courses(courses);
+    public Student(String name, String rollnum) {
+//this.courses = new Courses(courses);
         this.name = name;
         this.rollnum = rollnum;
     }
@@ -35,11 +35,9 @@ this.courses = new Courses(courses);
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", rollnum='" + rollnum + '\'' +
-courses +
-                '}';
+        return   "name='" + name + '\'' +
+                ", rollnum='" + rollnum + '\''
+                ;
     }
 
     @Override
